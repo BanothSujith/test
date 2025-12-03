@@ -24,9 +24,9 @@ app.post('/api/v1/notify', async (req,res)=>{
 //whats APP notification
 client.messages
   .create({
-    from: "whatsapp:+14155238886",
+    from: process.env.whatsappNumberfrom,
     body: `New portfolio contact:\nName: ${full_name}\nEmail: ${email}\nMessage: ${message}`,
-    to: "whatsapp:+917995037426",
+    to: process.env.whatsappNumberto,
   })
   .then((message) => console.log(message))
 fs.appendFileSync(
