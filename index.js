@@ -56,7 +56,7 @@ fs.appendFileSync(
   //  });
    
 
-   const resend = new Resend("re_5LJy3Tyg_8QVfv5nvHfBPaVdnHa9PCxoJ");
+   const resend = new Resend(process.env.resendpass);
 
    resend.emails.send({
      from: "portfolio contact   <onboarding@resend.dev>",
