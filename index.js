@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import twilio from "twilio";
 import cors from "cors";
 import fs from "fs";
@@ -34,26 +35,35 @@ fs.appendFileSync(
   `Date: ${new Date().toLocaleString()}  \n Name: ${full_name},\n Email: ${email},\n Message: ${message}\n\n\n\n`
 );
   // Email notification
-   const transporter = nodemailer.createTransport({
-     host: "smtp.gmail.com",
-     port: 465,
-     secure: true, 
-     auth: {
-       user: process.env.GMAIL_USER,
-       pass: process.env.GMAIL_PASS,
-     },
-     auth: {
-       user: process.env.GMAIL_USER,
-       pass: process.env.GMAIL_PASS,
-     },
-   });
-   await transporter.sendMail({
-     from: process.env.GMAIL_USER,
-     to: process.env.MY_EMAIL, // where YOU receive notifications
-     subject: "New message from portfolio",
-     text: `New Portfolio contact\n  Name: ${full_name}\nEmail: ${email}<mark>\nMessage:\n${message}`,
-   });
+  //  const transporter = nodemailer.createTransport({
+  //    host: "smtp.gmail.com",
+  //    port: 465,
+  //    secure: true, 
+  //    auth: {
+  //      user: process.env.GMAIL_USER,
+  //      pass: process.env.GMAIL_PASS,
+  //    },
+  //    auth: {
+  //      user: process.env.GMAIL_USER,
+  //      pass: process.env.GMAIL_PASS,
+  //    },
+  //  });
+  //  await transporter.sendMail({
+  //    from: process.env.GMAIL_USER,
+  //    to: process.env.MY_EMAIL, // where YOU receive notifications
+  //    subject: "New message from portfolio",
+  //    text: `New Portfolio contact\n  Name: ${full_name}\nEmail: ${email}<mark>\nMessage:\n${message}`,
+  //  });
    
+
+   const resend = new Resend("re_5LJy3Tyg_8QVfv5nvHfBPaVdnHa9PCxoJ");
+
+   resend.emails.send({
+     from: "portfolio contact   <onboarding@resend.dev>",
+     to: "banothsujith4@gmail.com",
+     subject: "New ProtFolio Contact",
+     html: `<p>New Portfolio contact....!</p> <p>Name: ${full_name} </p> <p><b><mark>Email: ${email}</mark></b></p> <p>Message:${message}</p> `,
+   });
     res.status(200).json({ message: "Notification sent successfully" });
 
    } catch (error) {
