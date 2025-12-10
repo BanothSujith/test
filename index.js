@@ -33,21 +33,21 @@ fs.appendFileSync(
   "contacts.txt",
   `Date: ${new Date().toLocaleString()}  \n Name: ${full_name},\n Email: ${email},\n Message: ${message}\n\n\n\n`
 );
-  //Email notification
-//    const transporter = nodemailer.createTransport({
-//      service: "gmail",
-//      auth: {
-//        user: process.env.GMAIL_USER,
-//        pass: process.env.GMAIL_PASS,
-//      },
+  // Email notification
+   const transporter = nodemailer.createTransport({
+     service: "gmail",
+     auth: {
+       user: process.env.GMAIL_USER,
+       pass: process.env.GMAIL_PASS,
+     },
 
-//    });
-//    await transporter.sendMail({
-//      from: process.env.GMAIL_USER,
-//      to: process.env.MY_EMAIL, // where YOU receive notifications
-//      subject: "New message from portfolio",
-//      text: `Name: ${full_name}\nEmail: ${email}\nMessage:\n${message}`,
-//    });
+   });
+   await transporter.sendMail({
+     from: process.env.GMAIL_USER,
+     to: process.env.MY_EMAIL, // where YOU receive notifications
+     subject: "New message from portfolio",
+     text: `New Portfolio contact\n  Name: ${full_name}\nEmail: ${email}<mark>\nMessage:\n${message}`,
+   });
    
     res.status(200).json({ message: "Notification sent successfully" });
 
